@@ -1,5 +1,5 @@
-import Axios from 'axios';
 import { useState } from 'react';
+import AxiosPost from '../Requests/AxiosPost';
 
 function AddNewTaskForm() {
     // internal state
@@ -26,20 +26,13 @@ function AddNewTaskForm() {
             return ;
         }
 
-        try {
-            const url = 'http://localhost:3001/tasks';
-            await Axios.post(url, {
-                title,
-                description
-            });
-            setLoading(false);
-            setTitle('');
-            setDescription('');
-
-        } catch(e) {
-            alert('Something went wrong');
-            setLoading(false);
-        }
+        await AxiosPost('tasks', {
+            title,
+            description
+        });
+        setLoading(false);
+        setTitle('');
+        setDescription('');
     };
 
 
